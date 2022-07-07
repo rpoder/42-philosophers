@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:37:46 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 18:10:03 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/07/07 18:59:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,18 @@ void	assign_philo_lastmeal(t_data *data)
 	{
 		data->philos[i].last_meal = last_meal;
 		i++;
+	}
+}
+
+void	wait_till_time(long long int time)
+{
+	long long int	now_int;
+	struct timeval	now;
+		while (1)
+	{
+		gettimeofday(&now, NULL);
+		now_int = (now.tv_sec * 1000000) + now.tv_usec;
+		if ( now_int >= time)
+			break;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 18:23:49 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/07/07 20:32:56 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_data {
 	int				must_eat;
 	t_philo			*philos;
 	pthread_mutex_t	*chopsticks;
+	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	go_mutex;
 	pthread_t		death_thread;
 	pthread_mutex_t	is_dead_mutex;
@@ -73,6 +74,9 @@ int			ft_is_positive(int num);
 int			ft_is_int(long int num);
 int			ft_isdigit(int c);
 size_t		ft_putstr_fd(char *s, int fd);
+size_t		ft_putchar_fd(char c, int fd);
+size_t		ft_putnbr_fd(long long int n, int fd);
+
 
 /* Init.c */
 t_data	*init_data(char **args);
@@ -83,10 +87,14 @@ int		create_mutexes(t_data *data);
 
 /* Prints.c */
 void	print_error(char *message);
-void	print_status(int status, long long int start, int tid);
+void	print_status(int status, t_philo *philo);
 
 /* Time.c */
 void	assign_philo_lastmeal(t_data *data);
 void	assign_philo_start(t_data *data, long long int start);
+void	wait_till_time(long long int time);
+
+/* Actions.c */
+void	eating(t_philo *philo, int one, int two);
 
 #endif

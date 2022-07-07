@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:01:33 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 18:04:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/07/07 20:51:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ t_data	*init_data(char **args)
 	if (!data)
 		return (NULL);
 	data->philo_nb = ft_atoi(args[0]);
-	data->t_die = ft_atoi(args[1]);
-	data->t_sleep = ft_atoi(args[2]);
-	data->t_eat = ft_atoi(args[3]);
+	data->t_die = ft_atoi(args[1]) * 1000;
+	data->t_sleep = ft_atoi(args[2]) * 1000;
+	data->t_eat = ft_atoi(args[3]) * 1000;
 	if (args[4])
 		data->must_eat = ft_atoi(args[4]) * 1000;
 	else
@@ -95,7 +95,16 @@ int	create_threads(t_data *data)
 		ret = pthread_create(&data->philos[i].ptr, NULL, &routine, &data->philos[i]);
 		if (ret != 0)
 			return (0);
-		i++;
+		i = i + 2;
+	}
+	i = 1;
+	usleep(data->t_eat - 500);
+	while (i < data->philo_nb)
+	{
+		ret = pthread_create(&data->philos[i].ptr, NULL, &routine, &data->philos[i]);
+		if (ret != 0)
+			return (0);
+		i = i + 2;
 	}
 	return (1);
 }
@@ -103,6 +112,8 @@ int	create_threads(t_data *data)
 int	create_mutexes(t_data *data)
 {
 	if (pthread_mutex_init(&data->go_mutex, NULL) != 0)
+		return (0);
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
 		return (0);
 	return (1);
 }

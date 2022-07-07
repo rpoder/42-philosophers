@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 18:24:25 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/07/07 20:43:07 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,30 @@ void	lauch_threads(t_data *data)
 void	*routine(void *arg)
 {
 	t_philo			*philo;
-	long long int	time;
-	struct timeval	now;
 
 	philo = (t_philo *) arg;
 	pthread_mutex_lock(&philo->data->go_mutex);
 	pthread_mutex_unlock(&philo->data->go_mutex);
-	while (1)
+	wait_till_time(philo->start);
+	// printf("Philo	%d\n", philo->tid);
+	// printf("left fork	%d\n", philo->left + 1);
+	// printf("right fork	%d\n\n", philo->right + 1);
+	if (philo->tid % 2 == 0)
 	{
-		gettimeofday(&now, NULL);
-		time = (now.tv_sec * 1000000) + now.tv_usec;
-		if ( time >= philo->start)
-			break;
+		pthread_mutex_lock(&philo->data->chopsticks[philo->left]);
+		print_status(MSG_FORK, philo);
+		pthread_mutex_lock(&philo->data->chopsticks[philo->right]);
+		print_status(MSG_FORK, philo);
+		eating(philo, philo->right, philo->left);
 	}
-	//ft_putstr_fd("coucou\n", 1);
-	print_status(1, philo->start, philo->tid);
+	else
+	{
+		pthread_mutex_lock(&philo->data->chopsticks[philo->right]);
+		print_status(MSG_FORK, philo);
+		pthread_mutex_lock(&philo->data->chopsticks[philo->left]);
+		print_status(MSG_FORK, philo);
+		eating(philo, philo->left, philo->right);
+	}
 	return (NULL);
 }
 

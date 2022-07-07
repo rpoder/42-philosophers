@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/07/07 18:25:10 by rpoder           ###   ########.fr        #
+#    Updated: 2022/07/07 20:35:44 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS				:=	main.c \
 						init.c \
 						prints.c \
 						time.c \
+						actions.c \
 
 CC					:=	cc
 RM					:=	rm
