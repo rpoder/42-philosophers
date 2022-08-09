@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 20:32:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/09 14:41:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ void	assign_philo_start(t_data *data, long long int start);
 void	wait_till_time(long long int time);
 
 /* Actions.c */
-void	eating(t_philo *philo, int one, int two);
+void	wait_and_take_forks(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 
 #endif

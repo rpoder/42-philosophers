@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 20:43:07 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/09 14:47:29 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,14 @@ void	*routine(void *arg)
 	// printf("Philo	%d\n", philo->tid);
 	// printf("left fork	%d\n", philo->left + 1);
 	// printf("right fork	%d\n\n", philo->right + 1);
-	if (philo->tid % 2 == 0)
+	if (philo->tid % 2 != 0)
+		usleep(philo->data->t_eat / 4);
+	while (1)
 	{
-		pthread_mutex_lock(&philo->data->chopsticks[philo->left]);
-		print_status(MSG_FORK, philo);
-		pthread_mutex_lock(&philo->data->chopsticks[philo->right]);
-		print_status(MSG_FORK, philo);
-		eating(philo, philo->right, philo->left);
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->data->chopsticks[philo->right]);
-		print_status(MSG_FORK, philo);
-		pthread_mutex_lock(&philo->data->chopsticks[philo->left]);
-		print_status(MSG_FORK, philo);
-		eating(philo, philo->left, philo->right);
+		wait_and_take_forks(philo);
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }

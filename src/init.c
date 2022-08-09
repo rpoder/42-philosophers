@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:01:33 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 20:51:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/09 14:13:45 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ int	create_philos(t_data *data)
 		return (0);
 	while (i < data->philo_nb)
 	{
+		data->philos[i].data = data;
 		data->philos[i].tid = i + 1;
 		data->philos[i].left = i;
 		data->philos[i].right = i + 1;
 		if (i == data->philo_nb - 1)
 			data->philos[i].right = 0;
-		data->philos[i].data = data;
 		i++;
 	}
 	return (1);
@@ -95,16 +95,7 @@ int	create_threads(t_data *data)
 		ret = pthread_create(&data->philos[i].ptr, NULL, &routine, &data->philos[i]);
 		if (ret != 0)
 			return (0);
-		i = i + 2;
-	}
-	i = 1;
-	usleep(data->t_eat - 500);
-	while (i < data->philo_nb)
-	{
-		ret = pthread_create(&data->philos[i].ptr, NULL, &routine, &data->philos[i]);
-		if (ret != 0)
-			return (0);
-		i = i + 2;
+		i++;
 	}
 	return (1);
 }

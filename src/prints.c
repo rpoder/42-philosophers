@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:04:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 20:50:55 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/09 14:33:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ void	print_status(int status, t_philo *philo)
 	now_int = (now.tv_sec * 1000000) + now.tv_usec;
 	timestamp = (now_int - philo->start) / 1000;
 	if (status == MSG_FORK)
-		printf("%lld	%d has taken a fork\n", timestamp, philo->tid);
-		if (status == MSG_EATING)
-		printf("%lld	%d is eating\n", timestamp, philo->tid);
+		printf("%lld %d has taken a fork\n", timestamp, philo->tid);
+	if (status == MSG_EATING)
+		printf("%lld %d is eating\n", timestamp, philo->tid);
+	if (status == MSG_SLEEPING)
+		printf("%lld %d is sleeping\n", timestamp, philo->tid);
+	if (status == MSG_THINKING)
+		printf("%lld %d is thinking\n", timestamp, philo->tid);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
