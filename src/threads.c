@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/09 14:47:29 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/10 11:54:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lauch_threads(t_data *data)
 
 	gettimeofday(&now, NULL);
 	starting_at = (now.tv_sec * 1000000) + now.tv_usec + 500000;
-	assign_philo_lastmeal(data);
+	assign_philo_lastmeal(data, starting_at);
 	assign_philo_start(data, starting_at);
 	pthread_mutex_unlock(&data->go_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/09 14:41:57 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/10 11:55:28 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	print_error(char *message);
 void	print_status(int status, t_philo *philo);
 
 /* Time.c */
-void	assign_philo_lastmeal(t_data *data);
+void	assign_philo_lastmeal(t_data *data, long long int last_meal);
 void	assign_philo_start(t_data *data, long long int start);
 void	wait_till_time(long long int time);
 
