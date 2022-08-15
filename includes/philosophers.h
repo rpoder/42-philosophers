@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/10 11:55:28 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/15 15:59:40 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <time.h>
+# include <stdbool.h>
 
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
@@ -56,14 +57,14 @@ typedef struct s_data {
 	pthread_mutex_t	go_mutex;
 	pthread_t		death_thread;
 	pthread_mutex_t	is_dead_mutex;
-	int				is_dead;
+	bool				is_dead;
 }	t_data;
 
 /* Parsing.c */
 t_data		*parse(int argc, char **argv);
 
 /* Threads.c */
-void		lauch_threads(t_data *data);
+int		lauch_threads(t_data *data);
 int			join_threads(t_data *data);
 void		*routine(void *arg);
 
@@ -76,7 +77,6 @@ int			ft_isdigit(int c);
 size_t		ft_putstr_fd(char *s, int fd);
 size_t		ft_putchar_fd(char c, int fd);
 size_t		ft_putnbr_fd(long long int n, int fd);
-
 
 /* Init.c */
 t_data	*init_data(char **args);
@@ -99,5 +99,9 @@ void	wait_and_take_forks(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
+
+/* Deaths */
+void	*death_routine(void *arg);
+int		is_dead(t_data *data);
 
 #endif
