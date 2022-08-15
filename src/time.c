@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:37:46 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 17:33:59 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/15 18:05:11 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	assign_philo_lastmeal(t_data *data, long long int last_meal)
 	i = 0;
 	while (i < data->philo_nb)
 	{
-		pthread_mutex_lock(&data->philos[i].lock_last_meal);
+		pthread_mutex_lock(&data->philos[i].last_meal_mutex);
 		data->philos[i].last_meal = last_meal;
-		pthread_mutex_unlock(&data->philos[i].lock_last_meal);
+		pthread_mutex_unlock(&data->philos[i].last_meal_mutex);
 		i++;
 	}
 }

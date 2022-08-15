@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:01:33 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 17:40:11 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/15 18:46:24 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	create_philos(t_data *data)
 		data->philos[i].right = i + 1;
 		if (i == data->philo_nb - 1)
 			data->philos[i].right = 0;
-		if (pthread_mutex_init(&data->philos[i].lock_last_meal, NULL) != 0)
+		if (pthread_mutex_init(&data->philos[i].last_meal_mutex, NULL) != 0)
 			return (0);
 		i++;
 	}
@@ -98,7 +98,7 @@ int	create_threads(t_data *data)
 		ret = pthread_create(&data->philos[i].ptr, NULL, &routine, &data->philos[i]);
 		if (ret != 0)
 			return (0);
-		if (pthread_mutex_init(&data->go_mutex, NULL) != 0)
+		if (pthread_mutex_init(&data->philos[i].last_meal_mutex, NULL) != 0)
 			return (0);
 		i++;
 	}
@@ -113,6 +113,6 @@ int	create_mutexes(t_data *data)
 		return (0);
 	if (pthread_mutex_init(&data->is_dead_mutex, NULL) != 0)
 		return (0);
-	data->is_dead = false;
+	data->is_dead = 0;
 	return (-1);
 }

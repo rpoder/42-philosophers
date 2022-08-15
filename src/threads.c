@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 17:47:09 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/15 18:53:20 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ int	lauch_threads(t_data *data)
 	int	ret;
 
 	gettimeofday(&now, NULL);
-	starting_at = (now.tv_sec * 1000000) + now.tv_usec + 5000000;
+	starting_at = (now.tv_sec * 1000000) + now.tv_usec + 500000;
 	assign_philo_lastmeal(data, starting_at);
 	assign_philo_start(data, starting_at);
-	// usleep(500000);
 	ret = pthread_create(&data->death_thread, NULL, &death_routine, data);
 	if (ret != 0)
 		return (-1);
@@ -37,12 +36,12 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->data->go_mutex);
 	pthread_mutex_unlock(&philo->data->go_mutex);
-	//print_status(MSG_THINKING, philo);
-	printf("philo start %lld\n", philo->start);
 	wait_till_time(philo->start);
-	//print_status(MSG_THINKING, philo);
-	if (philo->tid % 2 != 0)
+	if (philo->tid % 2 == 0)
+	{
+		thinking(philo);
 		usleep(philo->data->t_eat / 4);
+	}
 	while (!is_dead(philo->data))
 	{
 		wait_and_take_forks(philo);

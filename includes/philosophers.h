@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 15:59:40 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/15 18:48:12 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_philo {
 	long long int	start;
 	int				left;
 	int				right;
-	pthread_mutex_t	lock_last_meal;
+	pthread_mutex_t	last_meal_mutex;
 	long long int	last_meal;
 }	t_philo;
 
@@ -57,7 +57,7 @@ typedef struct s_data {
 	pthread_mutex_t	go_mutex;
 	pthread_t		death_thread;
 	pthread_mutex_t	is_dead_mutex;
-	bool				is_dead;
+	int				is_dead;
 }	t_data;
 
 /* Parsing.c */
@@ -100,8 +100,11 @@ void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
 
-/* Deaths */
+/* Deaths.c */
 void	*death_routine(void *arg);
 int		is_dead(t_data *data);
+
+/* Frees.c */
+void	free_all(t_data *data);
 
 #endif

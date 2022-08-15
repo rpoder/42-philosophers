@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 20:28:18 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 16:36:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/15 18:23:05 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	eating(t_philo *philo)
 	struct timeval	now;
 
 	print_status(MSG_EATING, philo);
-	pthread_mutex_lock(&philo->lock_last_meal);
+	pthread_mutex_lock(&philo->last_meal_mutex);
 	gettimeofday(&now, NULL);
 	philo->last_meal = (now.tv_sec * 1000000) + now.tv_usec;
-	pthread_mutex_unlock(&philo->lock_last_meal);
+	pthread_mutex_unlock(&philo->last_meal_mutex);
 	usleep(philo->data->t_eat);
 	pthread_mutex_unlock(&philo->data->chopsticks[philo->left]);
 	pthread_mutex_unlock(&philo->data->chopsticks[philo->right]);
@@ -55,6 +55,6 @@ void	thinking(t_philo *philo)
 	if (philo->data->t_eat >= philo->data->t_sleep)
 	{
 		print_status(MSG_THINKING, philo);
-		usleep(philo->data->t_eat - philo->data->t_sleep);
+		usleep(philo->data->t_eat - philo->data->t_sleep + 1);
 	}
 }

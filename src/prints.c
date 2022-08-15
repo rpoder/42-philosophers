@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:04:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 17:38:46 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/15 18:56:18 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,18 @@ void	print_status(int status, t_philo *philo)
 	long long int	now_int;
 	long long int	timestamp;
 
-	// pthread_mutex_lock(&philo->data->is_dead_mutex);
-	// if (philo->data->is_dead == true)
-	// {
-	// 	pthread_mutex_unlock(&philo->data->is_dead_mutex);
-	// 	return ;
-	// }
-	// pthread_mutex_unlock(&philo->data->is_dead_mutex);
 	pthread_mutex_lock(&philo->data->print_mutex);
+	pthread_mutex_lock(&philo->data->is_dead_mutex);
+	if (philo->data->is_dead != 0)
+	{
+		pthread_mutex_unlock(&philo->data->print_mutex);
+		pthread_mutex_unlock(&philo->data->is_dead_mutex);
+		return ;
+	}
+	pthread_mutex_unlock(&philo->data->is_dead_mutex);
 	gettimeofday(&now, NULL);
 	now_int = (now.tv_sec * 1000000) + now.tv_usec;
-	printf("now int = %lld / %lld\n", now_int, philo->start);
+	//printf("now int = %lld / %lld\n", now_int, philo->start);
 	timestamp = (now_int - philo->start) / 1000;
 	if (status == MSG_FORK)
 		printf("%lld %d has taken a fork\n", timestamp, philo->tid);
@@ -45,5 +46,6 @@ void	print_status(int status, t_philo *philo)
 		printf("%lld %d is thinking\n", timestamp, philo->tid);
 	if (status == MSG_DIE)
 		printf("%lld %d is dead\n", timestamp, philo->tid);
+	//printf("OK\n");
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
