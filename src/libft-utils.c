@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:55:07 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 18:39:33 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/16 19:05:54 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,12 +119,14 @@ int	ft_atoi(const char *s)
 
 int	ft_is_int(long int num)
 {
+	if (!ft_is_positive(num))
+		return (0);
 	if (num > INT_MAX || num < INT_MIN)
 		return (0);
 	return (1);
 }
 
-int	ft_is_positive(int num)
+int	ft_is_positive(long int num)
 {
 	if (num < 0)
 		return (0);

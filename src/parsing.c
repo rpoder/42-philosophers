@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:42:56 by rpoder            #+#    #+#             */
-/*   Updated: 2022/07/07 15:54:48 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/16 19:04:58 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	str_isdigit(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))
+		if (!ft_isdigit(str[i]) && str[i] != '-' )
 			return (0);
 		i++;
 	}
@@ -28,17 +28,6 @@ static int	str_isdigit(char *str)
 
 static int	check_numbers(char **args)
 {
-	if (!ft_is_int(ft_atol(args[0])) || !ft_is_int(ft_atol(args[1]))
-		|| !ft_is_int(ft_atol(args[2])) || !ft_is_int(ft_atol(args[3])))
-	{
-		print_error("Numbers are not integers or positive integers.");
-		return (0);
-	}
-	if (args[4] && !ft_is_int(ft_atol(args[4])))
-	{
-		print_error("Numbers are not integers or positive integers.");
-		return (0);
-	}
 	if (!str_isdigit(args[0]) || !str_isdigit(args[1])
 		|| !str_isdigit(args[2]) || !str_isdigit(args[3]))
 	{
@@ -50,6 +39,18 @@ static int	check_numbers(char **args)
 		print_error("Numbers are not digits.");
 		return (0);
 	}
+	if (!ft_is_int(ft_atol(args[0])) || !ft_is_int(ft_atol(args[1]))
+		|| !ft_is_int(ft_atol(args[2])) || !ft_is_int(ft_atol(args[3])))
+	{
+		print_error("Numbers are not integers or positive integers.");
+		return (0);
+	}
+	if (args[4] && !ft_is_int(ft_atol(args[4])))
+	{
+		print_error("Numbers are not integers or positive integers.");
+		return (0);
+	}
+
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 15:45:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/16 19:03:24 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		*routine(void *arg);
 /* Libft-addons.c */
 long int	ft_atol(char *s);
 int			ft_atoi(const char *s);
-int			ft_is_positive(int num);
+int			ft_is_positive(long int num);
 int			ft_is_int(long int num);
 int			ft_isdigit(int c);
 size_t		ft_putstr_fd(char *s, int fd);
