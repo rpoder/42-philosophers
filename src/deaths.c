@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:51:34 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 18:46:07 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/16 15:07:35 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int	is_dead(t_data *data)
 {
 	pthread_mutex_lock(&data->is_dead_mutex);
 	if (data->is_dead)
+	{
+		pthread_mutex_unlock(&data->is_dead_mutex);
 		return (1);
+	}
 	pthread_mutex_unlock(&data->is_dead_mutex);
 	return (0);
 }

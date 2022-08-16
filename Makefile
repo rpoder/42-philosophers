@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/15 16:27:05 by rpoder           ###   ########.fr        #
+#    Updated: 2022/08/16 15:16:32 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,14 @@ SRCS				:=	main.c \
 						time.c \
 						actions.c \
 						deaths.c \
+						frees.c \
 
 CC					:=	cc
 RM					:=	rm
 
 #CCFLAGS				:=	-Wall -Wextra -Werror
 
-#SANITIZE			:= -fsanitize=thread
+#SANITIZE			:= -fsanitize=address
 
 NAME				:=	$(PROGNAME)
 

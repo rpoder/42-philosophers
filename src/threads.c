@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 18:53:20 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/16 16:24:48 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*routine(void *arg)
 	wait_till_time(philo->start);
 	if (philo->tid % 2 == 0)
 	{
-		thinking(philo);
+		print_status(MSG_THINKING, philo);
 		usleep(philo->data->t_eat / 4);
 	}
 	while (!is_dead(philo->data))

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/15 18:48:12 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/16 15:45:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_data	*init_data(char **args);
 int		create_chopsticks(t_data *data);
 int		create_philos(t_data *data);
 int		create_threads(t_data *data);
-int		create_mutexes(t_data *data);
+int		create_data_mutexes(t_data *data);
 
 /* Prints.c */
 void	print_error(char *message);
@@ -106,5 +106,8 @@ int		is_dead(t_data *data);
 
 /* Frees.c */
 void	free_all(t_data *data);
+void	destroy_data_mutexes(t_data *data);
+void	destroy_last_meal_mutexes(t_data *data);
+void	destroy_chopsticks_mutexes(t_data *data);
 
 #endif
