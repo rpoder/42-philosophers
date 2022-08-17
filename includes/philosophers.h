@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 12:33:09 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 15:46:25 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,14 @@ typedef struct s_philo {
 	pthread_mutex_t	last_meal_mutex;
 	long long int	last_meal;
 	int				nb_of_meals;
+	bool			finish;
 }	t_philo;
 
 typedef struct s_data {
 	int				philo_nb;
-	int				t_die;
-	int				t_sleep;
-	int				t_eat;
+	long int				t_die;
+	long int				t_sleep;
+	long int				t_eat;
 	int				must_eat;
 	t_philo			*philos;
 	pthread_mutex_t	*chopsticks;
@@ -94,6 +95,7 @@ void	print_status(int status, t_philo *philo);
 void	assign_philo_lastmeal(t_data *data, long long int last_meal);
 void	assign_philo_start(t_data *data, long long int start);
 void	wait_till_time(long long int time);
+void	ft_usleep(t_data *data, int wait);
 
 /* Actions.c */
 void	wait_and_take_forks(t_philo *philo);

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:01:33 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 12:43:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 15:41:52 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ t_data	*init_data(char **args)
 	if (!data)
 		return (NULL);
 	data->philo_nb = ft_atoi(args[0]);
-	data->t_die = ft_atoi(args[1]) * 1000;
-	data->t_eat = ft_atoi(args[2]) * 1000;
-	data->t_sleep = ft_atoi(args[3]) * 1000;
+	data->t_die = ft_atol(args[1]) * 1000;
+	data->t_eat = ft_atol(args[2]) * 1000;
+	data->t_sleep = ft_atol(args[3]) * 1000;
 	if (args[4])
 		data->must_eat = ft_atoi(args[4]);
 	else
@@ -92,6 +92,7 @@ int	create_philos(t_data *data)
 		if (i == data->philo_nb - 1)
 			data->philos[i].right = 0;
 		data->philos[i].nb_of_meals = 0;
+		data->philos[i].finish = false;
 		if (pthread_mutex_init(&data->philos[i].last_meal_mutex, NULL) != 0)
 			return (-1);
 		i++;

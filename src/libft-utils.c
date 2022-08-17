@@ -6,38 +6,11 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:55:07 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 19:05:54 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 15:37:11 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-size_t	ft_putchar_fd(char c, int fd)
-{
-	return (write(fd, &c, 1));
-}
-
-size_t	ft_putnbr_fd(long long int n, int fd)
-{
-	unsigned int	nb;
-	size_t			value;
-
-	value = 0;
-	if (n < 0)
-	{
-		value += ft_putchar_fd('-', fd);
-		nb = -n;
-	}
-	else
-		nb = n;
-	if (nb > 9)
-	{
-		value += ft_putnbr_fd(nb / 10, fd);
-		nb = nb % 10;
-	}
-	value += ft_putchar_fd(nb + '0', fd);
-	return (value);
-}
 
 static size_t	ft_strlen(const char *str)
 {
@@ -47,20 +20,6 @@ static size_t	ft_strlen(const char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
-
-size_t	ft_putstr_fd(char *s, int fd)
-{
-	int		s_len;
-	size_t	value;
-
-	value = 0;
-	if (s)
-	{
-		s_len = ft_strlen(s);
-		value += write(fd, s, s_len);
-	}
-	return (value);
 }
 
 long int	ft_atol(char *s)

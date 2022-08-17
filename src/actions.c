@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 20:28:18 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 12:44:08 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 15:48:05 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	eating(t_philo *philo)
 	philo->last_meal = (now.tv_sec * 1000000) + now.tv_usec;
 	pthread_mutex_unlock(&philo->last_meal_mutex);
 	philo->nb_of_meals++;
-	usleep(philo->data->t_eat);
+	ft_usleep(philo->data, philo->data->t_eat);
 	pthread_mutex_unlock(&philo->data->chopsticks[philo->left]);
 	pthread_mutex_unlock(&philo->data->chopsticks[philo->right]);
 }
@@ -56,7 +56,7 @@ void	eating(t_philo *philo)
 void	sleeping(t_philo *philo)
 {
 	print_status(MSG_SLEEPING, philo);
-	usleep(philo->data->t_sleep);
+	ft_usleep(philo->data, philo->data->t_sleep);
 }
 
 void	thinking(t_philo *philo)
@@ -64,6 +64,6 @@ void	thinking(t_philo *philo)
 	if (philo->data->t_eat >= philo->data->t_sleep)
 	{
 		print_status(MSG_THINKING, philo);
-		usleep(philo->data->t_eat - philo->data->t_sleep + 1);
+		ft_usleep(philo->data, philo->data->t_eat - philo->data->t_sleep + 1);
 	}
 }
