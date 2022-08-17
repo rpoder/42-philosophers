@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:01:33 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 15:52:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 12:43:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	create_philos(t_data *data)
 		data->philos[i].right = i + 1;
 		if (i == data->philo_nb - 1)
 			data->philos[i].right = 0;
+		data->philos[i].nb_of_meals = 0;
 		if (pthread_mutex_init(&data->philos[i].last_meal_mutex, NULL) != 0)
 			return (-1);
 		i++;

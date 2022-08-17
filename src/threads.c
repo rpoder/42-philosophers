@@ -6,11 +6,20 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 19:12:23 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 12:44:39 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+
+static int	has_eaten_enough(t_philo *philo)
+{
+	if (philo->data->must_eat == -1)
+		return (0);
+	if (philo->nb_of_meals >= philo->data->must_eat)
+			return (1);
+	return (0);
+}
 
 int	lauch_threads(t_data *data)
 {
@@ -43,15 +52,15 @@ void	*routine(void *arg)
 		usleep(philo->data->t_eat / 4);
 	}
 	if (philo->data->philo_nb == 1)
-	{
-		wait_and_take_forks(philo);
-	}
-	while (!is_dead(philo->data))
-	{
-		wait_and_take_forks(philo);
-		eating(philo);
-		sleeping(philo);
-		thinking(philo);
+			print_status(MSG_FORK, philo);
+	else {
+		while (!is_dead(philo->data) && !has_eaten_enough(philo))
+		{
+			wait_and_take_forks(philo);
+			eating(philo);
+			sleeping(philo);
+			thinking(philo);
+		}
 	}
 	return (NULL);
 }

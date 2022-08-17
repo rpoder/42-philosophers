@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 15:22:35 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 19:03:24 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 12:33:09 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_philo {
 	int				right;
 	pthread_mutex_t	last_meal_mutex;
 	long long int	last_meal;
+	int				nb_of_meals;
 }	t_philo;
 
 typedef struct s_data {
