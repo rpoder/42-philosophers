@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/17 22:06:07 by rpoder           ###   ########.fr        #
+#    Updated: 2022/08/17 22:11:53 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
 						parsing.c \
-						libft-utils.c \
+						libft_utils.c \
 						threads.c \
 						threads_utils.c \
 						init.c \
