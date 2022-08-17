@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:51:34 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 21:26:34 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 21:56:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ static bool	while_death(t_data *data, bool alive)
 
 void	*death_routine(void *arg)
 {
-	bool			alive;
-	t_data			*data;
+	bool	alive;
+	t_data	*data;
 
 	data = (t_data *)arg;
 	alive = true;

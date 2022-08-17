@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/17 21:24:56 by rpoder           ###   ########.fr        #
+#    Updated: 2022/08/17 22:06:07 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS				:=	main.c \
 						parsing.c \
 						libft-utils.c \
 						threads.c \
+						threads_utils.c \
 						init.c \
 						creates.c \
 						prints.c \
