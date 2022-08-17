@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/17 18:17:31 by rpoder           ###   ########.fr        #
+#    Updated: 2022/08/17 19:39:29 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,17 +35,17 @@ RM					:=	rm
 
 #CCFLAGS				:=	-Wall -Wextra -Werror
 
-#SANITIZE			:= -fsanitize=address
+#SANITIZE			:= -fsanitize=thread -g3
 
 NAME				:=	$(PROGNAME)
 
 OUTDIR				:=	$(OBJDIR)
 
 $(OUTDIR)/%.o		:	$(SRCDIR)/%.c | $(OUTDIR)
-	$(CC) -c $(CCFLAGS) -g3 $(SANITIZE) -I $(INCLUDEDIR) $< -o $@
+	$(CC) -c $(CCFLAGS) $(SANITIZE) -I $(INCLUDEDIR) $< -o $@
 
 $(NAME)				:	$(addprefix $(OUTDIR)/,$(SRCS:.c=.o))
-	$(CC) $(CCFLAGS) $(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) -g3 $(SANITIZE) -lpthread -o $(NAME)
+	$(CC) $(CCFLAGS) $(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(SANITIZE) -lpthread -o $(NAME)
 
 all					:	$(NAME)
 
@@ -58,7 +58,8 @@ clean				:
 fclean				:	clean
 	$(RM) -f $(PROGNAME)
 
-re					:	fclean $(NAME)
+re					:	fclean
+	make $(NAME)
 
 push				:
 	$(MAKE) fclean
@@ -69,4 +70,3 @@ push				:
 
 .PHONY				:	all clean fclean re push
 
-#valgrind --tool=helgrind

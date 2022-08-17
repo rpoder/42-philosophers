@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:51:34 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 19:09:07 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:32:53 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static bool	while_death(t_data *data, bool alive)
 	{
 		gettimeofday(&now, NULL);
 		pthread_mutex_lock(&data->philos[i].last_meal_mutex);
+		pthread_mutex_lock(&data->philos[i].finish_mutex);
 		if ((((now.tv_sec * 1000000) + now.tv_usec) - data->philos[i].last_meal)
 			> data->t_die && !data->philos[i].finish)
 			alive = assign_death(data, i);
@@ -53,6 +54,7 @@ static bool	while_death(t_data *data, bool alive)
 		if (finito == data->philo_nb)
 			alive = false;
 		pthread_mutex_unlock(&data->philos[i].last_meal_mutex);
+		pthread_mutex_unlock(&data->philos[i].finish_mutex);
 		usleep(100);
 		i++;
 	}

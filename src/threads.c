@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 18:41:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:38:39 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static int	has_eaten_enough(t_philo *philo)
 		return (0);
 	if (philo->nb_of_meals >= philo->data->must_eat)
 	{
+		pthread_mutex_lock(&philo->finish_mutex);
 		philo->finish = true;
+		pthread_mutex_unlock(&philo->finish_mutex);
 		return (1);
 	}
 	return (0);
@@ -64,11 +66,13 @@ void	*routine(void *arg)
 	{
 		while (!is_dead(philo->data) && !has_eaten_enough(philo))
 		{
+			pthread_mutex_lock(&philo->finish_mutex);
 			if (!first_time && !philo->finish)
 			{
 				sleeping(philo);
 				thinking(philo);
 			}
+			pthread_mutex_unlock(&philo->finish_mutex);
 			wait_and_take_forks(philo);
 			eating(philo);
 			first_time = false;

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 18:12:51 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 18:25:40 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:39:11 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	create_threads(t_data *data)
 		if (ret != 0)
 			return (-1);
 		if (pthread_mutex_init(&data->philos[i].last_meal_mutex, NULL) != 0)
+			return (-1);
+		if (pthread_mutex_init(&data->philos[i].finish_mutex, NULL) != 0)
 			return (-1);
 		i++;
 	}

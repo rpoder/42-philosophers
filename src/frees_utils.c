@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:47:21 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 18:16:33 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:34:10 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	destroy_last_meal_mutexes(t_data *data)
 	i = 0;
 	while (i < data->philo_nb)
 	{
+		pthread_mutex_destroy(&data->philos[i].finish_mutex);
 		pthread_mutex_destroy(&data->philos[i].last_meal_mutex);
 		i++;
 	}
