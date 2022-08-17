@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:42 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 15:37:46 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:54:07 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 int	main(int argc, char **argv)
 {
-	t_data			*data;
+	t_data	*data;
 
 	data = parse(argc, argv);
 	if (!data)
-		return (0);
+		return (-1);
 	lauch_threads(data);
 	join_threads(data);
 	free_all(data);
-	return (1);
+	return (0);
 }

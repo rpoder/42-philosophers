@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:42:56 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 19:04:58 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 17:50:55 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,31 @@ static int	str_isdigit(char *str)
 		if (!ft_isdigit(str[i]) && str[i] != '-' )
 			return (0);
 		i++;
+	}
+	return (1);
+}
+
+static int	check_values(char **args)
+{
+	if (ft_atol(args[0]) <= 0)
+	{
+		print_error("Un philosophe est necessaire.");
+		return (0);
+	}
+	if (ft_atol(args[1]) <= 0)
+	{
+		print_error("Time to die doit etre superieur a 0.");
+		return (0);
+	}
+	if (ft_atol(args[2]) <= 0)
+	{
+		print_error("Time to eat doit etre superieur a 0");
+		return (0);
+	}
+	if (ft_atol(args[3]) <= 0)
+	{
+		print_error("Time to sleep doit etre superieur a 0");
+		return (0);
 	}
 	return (1);
 }
@@ -50,7 +75,8 @@ static int	check_numbers(char **args)
 		print_error("Numbers are not integers or positive integers.");
 		return (0);
 	}
-
+	if (!check_values(args))
+		return (0);
 	return (1);
 }
 
