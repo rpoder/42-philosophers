@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 11:51:34 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 18:27:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 19:09:07 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,43 +24,50 @@ int	is_dead(t_data *data)
 	return (0);
 }
 
+static bool	assign_death(t_data *data, int i)
+{
+	print_status(MSG_DIE, &data->philos[i]);
+	pthread_mutex_lock(&data->is_dead_mutex);
+	data->is_dead = i + 1;
+	pthread_mutex_unlock(&data->is_dead_mutex);
+	return (false);
+}
+
+static bool	while_death(t_data *data, bool alive)
+{
+	int				i;
+	int				finito;
+	struct timeval	now;
+
+	i = 0;
+	finito = 0;
+	while (i < data->philo_nb && alive)
+	{
+		gettimeofday(&now, NULL);
+		pthread_mutex_lock(&data->philos[i].last_meal_mutex);
+		if ((((now.tv_sec * 1000000) + now.tv_usec) - data->philos[i].last_meal)
+			> data->t_die && !data->philos[i].finish)
+			alive = assign_death(data, i);
+		else if (data->philos[i].finish)
+			finito++;
+		if (finito == data->philo_nb)
+			alive = false;
+		pthread_mutex_unlock(&data->philos[i].last_meal_mutex);
+		usleep(100);
+		i++;
+	}
+	return (alive);
+}
+
 void	*death_routine(void *arg)
 {
 	bool			alive;
-	int				i;
 	struct timeval	now;
-	long long int	now_int;
 	t_data			*data;
-	int				finito;
 
 	data = (t_data *)arg;
 	alive = true;
 	while (alive)
-	{
-		finito = 0;
-		i = 0;
-		while (i < data->philo_nb && alive)
-		{
-			gettimeofday(&now, NULL);
-			now_int = (now.tv_sec * 1000000) + now.tv_usec;
-			pthread_mutex_lock(&data->philos[i].last_meal_mutex);
-			if ((now_int - data->philos[i].last_meal) > data->t_die
-				&& !data->philos[i].finish)
-			{
-				alive = false;
-				print_status(MSG_DIE, &data->philos[i]);
-				pthread_mutex_lock(&data->is_dead_mutex);
-				data->is_dead = i + 1;
-				pthread_mutex_unlock(&data->is_dead_mutex);
-			}
-			else if (data->philos[i].finish)
-				finito++;
-			if (finito == data->philo_nb)
-				alive = false;
-			pthread_mutex_unlock(&data->philos[i].last_meal_mutex);
-			usleep(100);
-			i++;
-		}
-	}
+		alive = while_death(data, alive);
 	return (NULL);
 }

@@ -6,23 +6,11 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 18:08:55 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:41:18 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-static int	has_eaten_enough(t_philo *philo)
-{
-	if (philo->data->must_eat == -1)
-		return (0);
-	if (philo->nb_of_meals >= philo->data->must_eat)
-	{
-		philo->finish = true;
-		return (1);
-	}
-	return (0);
-}
 
 int	lauch_threads(t_data *data)
 {
@@ -41,6 +29,27 @@ int	lauch_threads(t_data *data)
 	return (0);
 }
 
+static int	has_eaten_enough(t_philo *philo)
+{
+	if (philo->data->must_eat == -1)
+		return (0);
+	if (philo->nb_of_meals >= philo->data->must_eat)
+	{
+		philo->finish = true;
+		return (1);
+	}
+	return (0);
+}
+
+static void	pre_routine(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->go_mutex);
+	pthread_mutex_unlock(&philo->data->go_mutex);
+	wait_till_time(philo->start);
+	if (philo->tid % 2 == 0)
+		ft_usleep(philo->data, philo->data->t_eat / 4);
+}
+
 void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -48,11 +57,7 @@ void	*routine(void *arg)
 
 	philo = (t_philo *)arg;
 	first_time = true;
-	pthread_mutex_lock(&philo->data->go_mutex);
-	pthread_mutex_unlock(&philo->data->go_mutex);
-	wait_till_time(philo->start);
-	if (philo->tid % 2 == 0)
-		ft_usleep(philo->data, philo->data->t_eat / 4);
+	pre_routine(philo);
 	if (philo->data->philo_nb == 1)
 		print_status(MSG_FORK, philo);
 	else
