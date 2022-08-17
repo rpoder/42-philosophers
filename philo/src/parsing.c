@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:42:56 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 18:04:22 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 21:26:11 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	check_values(char **args)
 		print_error("Time to sleep doit etre superieur a 0");
 		return (0);
 	}
+	if (args[4] && ft_atol(args[4]) <= 0)
+		return (0);
 	return (1);
 }
 
@@ -84,7 +86,6 @@ t_data	*parse(int argc, char **argv)
 {
 	char	**args;
 	t_data	*data;
-	int		ret;
 
 	args = argv + 1;
 	if (argc != 5 && argc != 6)
