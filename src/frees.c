@@ -6,13 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:47:21 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 15:42:24 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:21:51 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	unlock_mutexes(t_data *data)
+/* void	unlock_mutexes(t_data *data)
 {
 	int	i;
 	int	dead;
@@ -20,53 +20,37 @@ void	unlock_mutexes(t_data *data)
 	i = 0;
 	pthread_mutex_lock(&data->is_dead_mutex);
 	dead = data->is_dead;
-	//printf("%d IS FUCKING DEAD\n\n\n", dead);
 	pthread_mutex_unlock(&data->is_dead_mutex);
 	while (i < data->philo_nb)
 	{
-		//if (i + 1 != dead)
-			pthread_mutex_unlock(&data->chopsticks[i]);
+		pthread_mutex_unlock(&data->chopsticks[i]);
 		i++;
 	}
-}
+} */
 
-void	destroy_data_mutexes(t_data *data)
+void	*ft_free(t_data *data, int status)
 {
-	pthread_mutex_destroy(&data->go_mutex);
-	pthread_mutex_destroy(&data->is_dead_mutex);
-	pthread_mutex_destroy(&data->print_mutex);
-}
-
-void	destroy_last_meal_mutexes(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->philo_nb)
+	if (status == 1)
+		free(data);
+	if (status == 2)
 	{
-		pthread_mutex_destroy(&data->philos[i].last_meal_mutex);
-		i++;
+		destroy_data_mutexes(data);
+		free(data);
 	}
-}
-
-void	destroy_chopsticks_mutexes(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->philo_nb)
+	if (status == 3)
 	{
-		pthread_mutex_destroy(&data->chopsticks[i]);
-		i++;
+		destroy_data_mutexes(data);
+		destroy_chopsticks_mutexes(data);
+		free(data);
 	}
-}
-
-void	destroy_mutexes(t_data *data)
-{
-	destroy_last_meal_mutexes(data);
-	destroy_chopsticks_mutexes(data);
-	free (data->chopsticks);
-	destroy_data_mutexes(data);
+	if (status == 4)
+	{
+		pthread_mutex_unlock(&data->go_mutex);
+		destroy_data_mutexes(data);
+		destroy_chopsticks_mutexes(data);
+		free(data);
+	}
+	return (NULL);
 }
 
 void	free_all(t_data *data)

@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/16 15:16:32 by rpoder           ###   ########.fr        #
+#    Updated: 2022/08/17 18:17:31 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,11 +22,13 @@ SRCS				:=	main.c \
 						libft-utils.c \
 						threads.c \
 						init.c \
+						creates.c \
 						prints.c \
 						time.c \
 						actions.c \
 						deaths.c \
 						frees.c \
+						frees_utils.c \
 
 CC					:=	cc
 RM					:=	rm

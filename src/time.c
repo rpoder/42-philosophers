@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 17:37:46 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 15:57:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:09:38 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,22 @@ void	wait_till_time(long long int time)
 {
 	long long int	now_int;
 	struct timeval	now;
+
 	while (1)
 	{
 		gettimeofday(&now, NULL);
 		now_int = (now.tv_sec * 1000000) + now.tv_usec;
 		if (now_int >= time)
-			break;
+			break ;
 	}
 }
 
 void	ft_usleep(t_data *data, int wait)
 {
-	struct timeval now;
-	struct timeval tmp;
-	long long int		now_int;
-	long long int		tmp_int;
+	struct timeval	now;
+	struct timeval	tmp;
+	long long int	now_int;
+	long long int	tmp_int;
 
 	gettimeofday(&now, NULL);
 	now_int = (now.tv_sec * 1000000) + now.tv_usec;
@@ -66,14 +67,14 @@ void	ft_usleep(t_data *data, int wait)
 		if (data->is_dead != 0)
 		{
 			pthread_mutex_unlock(&data->is_dead_mutex);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&data->is_dead_mutex);
 		gettimeofday(&tmp, NULL);
 		tmp_int = (tmp.tv_sec * 1000000) + tmp.tv_usec;
 		if (tmp_int >= now_int + wait)
 		{
-			break;
+			break ;
 		}
 		usleep(100);
 	}

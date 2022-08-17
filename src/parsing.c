@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:42:56 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 17:50:55 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:04:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	str_isdigit(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]) && str[i] != '-' )
+		if (!ft_isdigit(str[i]) && str[i] != '-')
 			return (0);
 		i++;
 	}

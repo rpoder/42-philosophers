@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 16:04:40 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 15:56:17 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:12:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 void	print_error(char *message)
 {
 	printf("%s\n", message);
+}
+
+void	display_message(int status, long long int timestamp, t_philo *philo)
+{
+	if (status == MSG_FORK)
+		printf("%lld	%d has taken a fork\n", timestamp, philo->tid);
+	if (status == MSG_EATING)
+		printf("%lld	%d is eating\n", timestamp, philo->tid);
+	if (status == MSG_SLEEPING)
+		printf("%lld	%d is sleeping\n", timestamp, philo->tid);
+	if (status == MSG_THINKING)
+		printf("%lld	%d is thinking\n", timestamp, philo->tid);
+	if (status == MSG_DIE)
+		printf("%lld	%d is dead\n", timestamp, philo->tid);
 }
 
 void	print_status(int status, t_philo *philo)
@@ -35,15 +49,6 @@ void	print_status(int status, t_philo *philo)
 	gettimeofday(&now, NULL);
 	now_int = (now.tv_sec * 1000000) + now.tv_usec;
 	timestamp = (now_int - philo->start) / 1000;
-	if (status == MSG_FORK)
-		printf("%lld	%d has taken a fork\n", timestamp, philo->tid);
-	if (status == MSG_EATING)
-		printf("%lld	%d is eating\n", timestamp, philo->tid);
-	if (status == MSG_SLEEPING)
-		printf("%lld	%d is sleeping\n", timestamp, philo->tid);
-	if (status == MSG_THINKING)
-		printf("%lld	%d is thinking\n", timestamp, philo->tid);
-	if (status == MSG_DIE)
-		printf("%lld	%d is dead\n", timestamp, philo->tid);
+	display_message(status, timestamp, philo);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }

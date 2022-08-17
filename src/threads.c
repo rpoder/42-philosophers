@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:38:55 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 16:01:50 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:08:55 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	has_eaten_enough(t_philo *philo)
 
 int	lauch_threads(t_data *data)
 {
-	struct			 timeval now;
+	struct timeval	now;
 	long long int	starting_at;
-	int	ret;
+	int				ret;
 
 	gettimeofday(&now, NULL);
 	starting_at = (now.tv_sec * 1000000) + now.tv_usec + 500000;
@@ -54,8 +54,9 @@ void	*routine(void *arg)
 	if (philo->tid % 2 == 0)
 		ft_usleep(philo->data, philo->data->t_eat / 4);
 	if (philo->data->philo_nb == 1)
-			print_status(MSG_FORK, philo);
-	else {
+		print_status(MSG_FORK, philo);
+	else
+	{
 		while (!is_dead(philo->data) && !has_eaten_enough(philo))
 		{
 			if (!first_time && !philo->finish)
@@ -78,11 +79,11 @@ int	join_threads(t_data *data)
 	i = 0;
 	while (i < data->philo_nb)
 	{
-		if (pthread_join((data->philos[i].ptr),NULL) != 0)
+		if (pthread_join((data->philos[i].ptr), NULL) != 0)
 			return (0);
 		i++;
 	}
-	if (pthread_join((data->death_thread),NULL) != 0)
-			return (0);
+	if (pthread_join((data->death_thread), NULL) != 0)
+		return (0);
 	return (1);
 }

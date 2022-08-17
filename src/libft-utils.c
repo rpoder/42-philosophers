@@ -6,21 +6,11 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/07 15:55:07 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 15:37:11 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:31:39 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-static size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 long int	ft_atol(char *s)
 {
