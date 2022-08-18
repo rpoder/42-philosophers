@@ -6,27 +6,11 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 18:47:21 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/17 19:32:00 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/18 12:47:10 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-/* void	unlock_mutexes(t_data *data)
-{
-	int	i;
-	int	dead;
-
-	i = 0;
-	pthread_mutex_lock(&data->is_dead_mutex);
-	dead = data->is_dead;
-	pthread_mutex_unlock(&data->is_dead_mutex);
-	while (i < data->philo_nb)
-	{
-		pthread_mutex_unlock(&data->chopsticks[i]);
-		i++;
-	}
-} */
 
 void	*ft_free(t_data *data, int status)
 {
